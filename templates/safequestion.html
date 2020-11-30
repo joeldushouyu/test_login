@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Safe Question
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+      <form class="form-signin" method="POST" action="/safequestion">
+
+         <box>
+             {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+
+         </box>
+
+
+        <h2 class="form-signin-heading">Please enter Answer to the following question</h2>
+
+          <h4> You need to remember the answer to those questions in order to retrieve you password when you forget </h4>
+        <h4> Note: The answer to the system will not be case sensitive</h4>
+        {{ form.hidden_tag() }}
+
+        {{ wtf.form_field(form.favorite_anime) }}
+        {{ wtf.form_field(form.favorite_animecharacter ) }}
+        {{ wtf.form_field(form.favorite_country) }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      </form>
+
+    </div> <!-- /container -->
+{% endblock %}
